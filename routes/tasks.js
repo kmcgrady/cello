@@ -4,13 +4,13 @@ const boom = require('boom');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
-const { authorize } = require('../middleware/auth');
+const { authorize, authorizeBoard } = require('../middleware/auth');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.get('/tasks', authorize, (req, res, next) => {
+router.get('/tasks', authorize, authorizeBoard, (req, res, next) => {
   const { columnId } = req.body;
 
   knex('tasks')
@@ -27,7 +27,7 @@ router.get('/tasks', authorize, (req, res, next) => {
     });
 });
 
-router.post('/tasks', authorize, (req, res, next) => {
+router.post('/tasks', authorize, authorizeBoard, (req, res, next) => {
   const {
     columnId,
     columnIndex,
@@ -52,7 +52,7 @@ router.post('/tasks', authorize, (req, res, next) => {
     });
 });
 
-router.put('/tasks/:id', authorize, (req, res, next) => {
+router.put('/tasks/:id', authorize, authorizeBoard, (req, res, next) => {
   const { id } = req.params;
   const {
     columnId,
@@ -88,7 +88,7 @@ router.put('/tasks/:id', authorize, (req, res, next) => {
     });
 });
 
-router.delete('/tasks/:id', authorize, (req, res, next) => {
+router.delete('/tasks/:id', authorize, authorizeBoard, (req, res, next) => {
   const { id } = req.params;
   let task;
 

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-materialize": "^0.2.1",
     "bcrypt-as-promised": "^1.1.0",
     "body-parser": "^1.15.2",
     "boom": "^3.2.2",

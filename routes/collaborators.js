@@ -4,14 +4,14 @@ const boom = require('boom');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
-const { authorize } = require('../middleware/auth');
+const { authorize, authorizeBoard } = require('../middleware/auth');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
 // Gets collaborators for a specific board
-router.get('/collaborators', authorize, (req, res, next) => {
+router.get('/collaborators', authorize, authorizeBoard, (req, res, next) => {
   const { boardId } = req.body;
 
   knex('collaborators')
@@ -28,7 +28,7 @@ router.get('/collaborators', authorize, (req, res, next) => {
     });
 });
 
-router.post('/collaborators', authorize, (req, res, next) => {
+router.post('/collaborators', authorize, authorizeBoard, (req, res, next) => {
   const { boardId, userId } = req.body;
 
   knex('boards')
@@ -54,7 +54,7 @@ router.post('/collaborators', authorize, (req, res, next) => {
     });
 });
 
-router.delete('/collaborators', authorize, (req, res, next) => {
+router.delete('/collaborators', authorize, authorizeBoard, (req, res, next) => {
   const { boardId, userId } = req.body;
   const clause = decamelizeKeys({ boardId, userId });
   let member;

@@ -1,17 +1,48 @@
 <!DOCTYPE html>
-<html ng-app="my-app">
+<html ng-app="cello">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello world</title>
+    <title>Cello</title>
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" href="/vendor.css">
     <link rel="stylesheet" href="/app.css">
   </head>
   <body>
-    <h1>Hello World</h1>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Cello</a>
+        <a href="#" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/signup">Sign Up</a></li>
+          <li><a href="/login">Log In</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile">
+          <li><a href="/signup">Sign Up</a></li>
+          <li><a href="/login">Log In</a></li>
+        </ul>
+      </div>
+    </nav>
 
+    <main>
+      <div class="row board" ng-controller="BoardCtrl as boardCtrl">
+        <div class="col s6 m3 column" ng-repeat="column in boardCtrl.columns()">
+          <div class="column-header">{{ column.name }}</div>
+          <div class="tasks">
+            <div class="task flow-text" ng-repeat="task in boardCtrl.tasksForColumn(column.id)">
+              {{ task.shortDescription }}
+            </div>
+          </div>
+          <div class="add-card">
+            Add a card...
+          </div>
+        </div>
+        <div class="col s6 m3 add-column">
+          Add a column...
+        </div>
+      </div>
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>

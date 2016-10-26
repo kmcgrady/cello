@@ -4,14 +4,14 @@ const boom = require('boom');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const knex = require('../knex');
-const { authorize } = require('../middleware/auth');
+const { authorize, authorizeBoard } = require('../middleware/auth');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
 // Gets members for a specific task
-router.get('/members', authorize, (req, res, next) => {
+router.get('/members', authorize, authorizeBoard, (req, res, next) => {
   const { taskId } = req.body;
 
   knex('members')
@@ -28,7 +28,7 @@ router.get('/members', authorize, (req, res, next) => {
     });
 });
 
-router.post('/members', authorize, (req, res, next) => {
+router.post('/members', authorize, authorizeBoard, (req, res, next) => {
   const { taskId, userId } = req.body;
 
   knex('tasks')
@@ -54,7 +54,7 @@ router.post('/members', authorize, (req, res, next) => {
     });
 });
 
-router.delete('/members', authorize, (req, res, next) => {
+router.delete('/members', authorize, authorizeBoard, (req, res, next) => {
   const { taskId, userId } = req.body;
   const clause = decamelizeKeys({ taskId, userId });
   let member;
