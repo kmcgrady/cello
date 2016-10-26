@@ -1,40 +1,21 @@
 class ColumnsService {
-  constructor() {
-    this.columns = [
-      {
-        id: 1,
-        name: 'To Do',
-        tasks: [{
-          shortDescription: 'This is a short description - col 1'
-        }, {
-          shortDescription: 'This is a short description - col 1'
-        }, {
-          shortDescription: 'This is a short description - col 1'
-        }]
-      },
-      {
-        id: 2,
-        name: 'Doing',
-        tasks: [{
-          shortDescription: 'This is a short description - col 2'
-        }, {
-          shortDescription: 'This is a short description - col 2'
-        }, {
-          shortDescription: 'This is a short description - col 2'
-        }]
-      },
-      {
-        id: 3,
-        name: 'Done',
-        tasks: [{
-          shortDescription: 'This is a short description - col 3'
-        }, {
-          shortDescription: 'This is a short description - col 3'
-        }, {
-          shortDescription: 'This is a short description - col 3'
-        }]
-      }
-    ];
+  constructor($http) {
+    this.$http = $http;
+    this.columns = [];
+  }
+
+  fetchColumns(boardId) {
+    return this.$http({
+      url: '/api/columns',
+      method: 'GET',
+      params: { boardId }
+    })
+    .then((res) => {
+      this.columns = res.data;
+    })
+    .catch((res) => {
+      console.error(res);
+    });
   }
 
   tasksForColumn(columnId) {

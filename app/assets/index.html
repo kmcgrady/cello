@@ -28,10 +28,10 @@
 
     <main ng-controller="BoardCtrl as boardCtrl">
       <div class="board-name">
-        {{ boardCtrl.name }}
+        {{ boardCtrl.boardName() }}
       </div>
       <div class="row board">
-        <div class="col s6 m3 column" ng-repeat="column in boardCtrl.columns()">
+        <div class="col s6 m3 column" ng-repeat="column in boardCtrl.columns()  track by $index">
           <div class="column-header">{{ column.name }}</div>
           <div class="tasks">
             <div class="task flow-text" ng-repeat="task in boardCtrl.tasksForColumn(column.id)">

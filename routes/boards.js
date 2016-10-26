@@ -31,6 +31,29 @@ router.get('/boards', authorize, (req, res, next) => {
     });
 });
 
+router.get('/boards/:id', authorize, (req, res, next) => {
+  const { userId } = req.token;
+  const { id } = req.params;
+  const collaboratedBoards = knex('collaborators')
+    .select('board_id')
+    .where('user_id', userId);
+
+  // User may be the owner of a board or a collaborator of a board
+  knex('boards')
+    .whereIn('id', collaboratedBoards)
+    .orWhere('owner_id', Number.parseInt(userId))
+    .where('id' , id)
+    .orderBy('name', 'ASC')
+    .then((rows) => {
+      const board = camelizeKeys(rows[0]);
+
+      res.send(board);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.post('/boards', authorize, (req, res, next) => {
   const { name } = req.body;
   const { userId } = req.token;

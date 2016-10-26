@@ -11,7 +11,7 @@ const authorize = function(req, res, next) {
       userId: 1
     };
 
-    return;
+    return next();
   }
 
   const token = req.cookies.token;
@@ -29,7 +29,7 @@ const authorize = function(req, res, next) {
 
 const authorizeBoard = function(req, res, next) {
   const { userId } = req.token;
-  const { boardId } = req.body;
+  const { boardId } = req.body.boardId ? req.body : req.query;
 
   const collaboratedBoards = knex('collaborators')
     .select('board_id')

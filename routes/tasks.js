@@ -11,7 +11,7 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 const router = express.Router();
 
 router.get('/tasks', authorize, authorizeBoard, (req, res, next) => {
-  const { columnId } = req.body;
+  const { columnId } = req.query;
 
   knex('tasks')
     .where('column_id', columnId)
