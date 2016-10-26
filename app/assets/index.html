@@ -6,6 +6,7 @@
     <title>Cello</title>
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/vendor.css">
     <link rel="stylesheet" href="/app.css">
   </head>
@@ -25,8 +26,11 @@
       </div>
     </nav>
 
-    <main>
-      <div class="row board" ng-controller="BoardCtrl as boardCtrl">
+    <main ng-controller="BoardCtrl as boardCtrl">
+      <div class="board-name">
+        {{ boardCtrl.name }}
+      </div>
+      <div class="row board">
         <div class="col s6 m3 column" ng-repeat="column in boardCtrl.columns()">
           <div class="column-header">{{ column.name }}</div>
           <div class="tasks">

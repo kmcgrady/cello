@@ -1,5 +1,6 @@
 class BoardCtrl {
   constructor(columnsSvc) {
+    this.name = 'A Sample Board';
     this.columnsSvc = columnsSvc;
   }
 

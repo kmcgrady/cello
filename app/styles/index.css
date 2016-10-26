@@ -2,6 +2,13 @@ body {
   color: #333;
 }
 
+.board-name {
+  padding: 15px;
+  color: #ccc;
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .row .col.column {
   float: none;
   display: inline-block;
@@ -33,12 +40,13 @@ body {
   font-size: 20px;
 }
 
-.board {
+.row.board {
   overflow-x: scroll;
   white-space: nowrap;
   flex-grow: 1;
   flex-shrink: 0;
-  background-color: #000;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 html {
@@ -53,8 +61,10 @@ body {
 
 main {
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
   flex-shrink: 0;
+  background-color: #000;
 }
 
 .add-card {
