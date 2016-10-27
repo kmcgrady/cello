@@ -6,6 +6,8 @@ import BoardService from './board/board.service';
 import ColumnsService from './board/columns.service';
 import TasksService from './board/tasks.service';
 
+import ColumnCtrl from './columns/column.controller';
+
 angular.module('cello', [angularMaterialize])
   .service('TasksService', ['$http', TasksService])
   .service('ColumnsService', ['$http', ColumnsService])
@@ -15,4 +17,10 @@ angular.module('cello', [angularMaterialize])
     'ColumnsService',
     'TasksService',
     BoardCtrl
+  ])
+  .controller('ColumnCtrl', [
+    'BoardService',
+    'ColumnsService',
+    'TasksService',
+    ColumnCtrl
   ]);

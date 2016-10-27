@@ -26,6 +26,17 @@ class TasksService {
 
     return [];
   }
+
+  addTask(task) {
+    return this.$http.post('/api/tasks', task)
+      .then((res) => {
+        this.tasks[task.columnId].push(res.data);
+        return res.data;
+      })
+      .catch((res) => {
+        console.error(res);
+      })
+  }
 }
 
 export default TasksService;

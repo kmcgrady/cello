@@ -31,14 +31,21 @@
         {{ boardCtrl.boardName() }}
       </div>
       <div class="row board">
-        <div class="col s6 m3 column" ng-repeat="column in boardCtrl.columns()  track by $index">
+        <div class="col s6 m3 column" ng-repeat="column in boardCtrl.columns()  track by $index" ng-controller="ColumnCtrl as columnCtrl">
           <div class="column-header">{{ column.name }}</div>
           <div class="tasks">
             <div class="task flow-text" ng-repeat="task in boardCtrl.tasksForColumn(column.id)">
               {{ task.shortDescription }}
             </div>
+            <div class="task" ng-if="columnCtrl.isAddingTask">
+              <form ng-submit="columnCtrl.saveTask(column.id)">
+                <div class="input-field">
+                  <input type="text" ng-model="columnCtrl.addedTaskDescription">
+                </div>
+              </form>
+            </div>
           </div>
-          <div class="add-card">
+          <div class="add-card" ng-if="!columnCtrl.isAddingTask" ng-click="columnCtrl.addTask()">
             Add a card...
           </div>
         </div>

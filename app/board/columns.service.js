@@ -21,6 +21,10 @@ class ColumnsService {
   tasksForColumn(columnId) {
     return this.columns.filter((col) => col.id === columnId)[0].tasks;
   }
+
+  addTaskForColumn(columnId, task) {
+    this.columns.filter((col) => col.id === columnId)[0].tasks.push(task);
+  }
 }
 
 export default ColumnsService;

@@ -3,6 +3,8 @@ class BoardCtrl {
     this.boardSvc = boardSvc;
     this.columnsSvc = columnsSvc;
     this.tasksSvc = tasksSvc;
+    this.isAddingColumn = false;
+    this.newColumnName = '';
 
     boardSvc.fetchBoard(1)
       .then(() => {
@@ -28,6 +30,10 @@ class BoardCtrl {
 
   tasksForColumn(columnId) {
     return this.tasksSvc.tasksForColumn(this.boardSvc.board.id, columnId);
+  }
+
+  addColumn() {
+    this.isAddingColumn = true;
   }
 }
 
