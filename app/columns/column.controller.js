@@ -4,7 +4,7 @@ class ColumnCtrl {
     this.columnsSvc = columnsSvc;
     this.tasksSvc = tasksSvc;
     this.isAddingTask = false;
-    this.addedTaskDescription = '';
+    this.newTaskDescription = '';
   }
 
   addTask() {

@@ -18,12 +18,16 @@ class ColumnsService {
     });
   }
 
-  tasksForColumn(columnId) {
-    return this.columns.filter((col) => col.id === columnId)[0].tasks;
-  }
+  addColumn(column) {
+    return this.$http.post('/api/columns', column)
+      .then((res) => {
+        this.columns.push(res.data);
 
-  addTaskForColumn(columnId, task) {
-    this.columns.filter((col) => col.id === columnId)[0].tasks.push(task);
+        return res.data;
+      })
+      .catch((res) => {
+        console.error(res);
+      });
   }
 }
 

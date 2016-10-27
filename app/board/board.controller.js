@@ -35,6 +35,20 @@ class BoardCtrl {
   addColumn() {
     this.isAddingColumn = true;
   }
+
+  saveColumn() {
+    this.columnsSvc.addColumn({
+      name: this.newColumnName,
+      boardId: this.boardSvc.board.id
+    })
+    .then((column) => {
+      this.isAddingColumn = false;
+      this.newColumnName = '';
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  }
 }
 
 export default BoardCtrl;
