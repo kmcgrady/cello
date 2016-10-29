@@ -3,7 +3,7 @@
 'use strict';
 
 exports.seed = function(knex) {
-  return knex('members').del()
+  return knex('collaborators').del()
     // .then(() => {
     //   return knex('members').insert([{
     //     id: 1,

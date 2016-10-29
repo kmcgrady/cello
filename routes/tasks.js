@@ -27,6 +27,25 @@ router.get('/tasks', authorize, authorizeBoard, (req, res, next) => {
     });
 });
 
+router.get('/tasks/:id', authorize, authorizeBoard, (req, res, next) => {
+  const { id } = req.params;
+  const { columnId } = req.query;
+
+  knex('tasks')
+    .where('id', id)
+    .first()
+    .then((task) => {
+      if (!task) {
+        throw boom.create(404, 'Task not found');
+      }
+
+      res.send(camelizeKeys(task));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.post('/tasks', authorize, authorizeBoard, (req, res, next) => {
   const {
     columnId,

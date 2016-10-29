@@ -12,14 +12,18 @@ const router = express.Router();
 
 // Gets members for a specific task
 router.get('/members', authorize, authorizeBoard, (req, res, next) => {
-  const { taskId } = req.body;
+  const { taskId } = req.query;
 
   knex('members')
-    .innerJoin('users', 'users.id', 'members.user_id')
+    .innerJoin('users', 'members.user_id', 'users.id')
     .where('members.task_id', taskId)
     .orderBy('users.name', 'ASC')
     .then((rows) => {
       const members = camelizeKeys(rows);
+
+      members.forEach((user) => {
+        delete user.hashedPassword;
+      });
 
       res.send(members);
     })

@@ -1,10 +1,21 @@
 class ColumnCtrl {
-  constructor(boardSvc, columnsSvc, tasksSvc) {
+  constructor(boardSvc, tasksSvc, taskSvc) {
     this.boardSvc = boardSvc;
-    this.columnsSvc = columnsSvc;
     this.tasksSvc = tasksSvc;
     this.isAddingTask = false;
     this.newTaskDescription = '';
+    this.taskSvc = taskSvc;
+    this.openModal = false;
+  }
+
+  openTask(taskId) {
+    this.taskSvc.fetchTaskForBoard(taskId, this.boardSvc.board.id)
+      .then((task) => {
+        this.openModal = true;
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   }
 
   addTask() {
@@ -14,7 +25,7 @@ class ColumnCtrl {
   saveTask(columnId) {
     this.tasksSvc.addTask({
       boardId: this.boardSvc.board.id,
-      shortDescription: this.addedTaskDescription,
+      shortDescription: this.newTaskDescription,
       columnIndex: this.tasksSvc.tasksForColumn(columnId).length + 1,
       columnId
     })

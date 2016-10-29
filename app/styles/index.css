@@ -79,3 +79,13 @@ main {
   background-color: #999;
   border-radius: 0 0 3px 3px;
 }
+
+.modal h2 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.modal h3 {
+  font-size: 14px;
+  color: #999;
+}

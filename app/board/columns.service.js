@@ -29,6 +29,16 @@ class ColumnsService {
         console.error(res);
       });
   }
+
+  getColumnName(columnId) {
+    const foundColumns = this.columns.filter((col) => columnId === col.id);
+
+    if (foundColumns.length > 0) {
+      return foundColumns[0].name;
+    }
+
+    return '';
+  }
 }
 
 export default ColumnsService;
